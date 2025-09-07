@@ -1,0 +1,8 @@
+{
+  "name": "Heuristic Evaluator",
+  "id": "heuristic-evaluator",
+  "editorType": ["figma", "figjam"],
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}

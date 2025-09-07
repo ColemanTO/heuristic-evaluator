@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Heuristic Evaluator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h2>Heuristic Evaluation</h2>
+  <button id="run">Run Evaluation</button>
+  <div id="results"></div>
+
+  <script>
+    document.getElementById('run').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'run-evaluation' } }, '*');
+    };
+
+    onmessage = (event) => {
+      const { type, data } = event.data.pluginMessage;
+      if (type === 'report') {
+        const container = document.getElementById('results');
+        container.innerHTML = '';
+        data.forEach(item => {
+          const frame = document.createElement('h3');
+          frame.textContent = `Frame: ${item.frame} (Score: ${item.score})`;
+          container.appendChild(frame);
+
+          item.issues.forEach(issue => {
+            const p = document.createElement('p');
+            p.textContent = `- ${issue}`;
+            container.appendChild(p);
+          });
+        });
+      }
+    };
+  </script>
+</body>
+</html>
